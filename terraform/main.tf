@@ -1,19 +1,19 @@
 # Storage & Disk Images
 resource "libvirt_pool" "vm_pool" {
-  name = "kvm-pool"
+  name = "${local.name_prefix}-pool"
   type = "dir"
   path = var.storage_pool_path
 }
 
 resource "libvirt_volume" "ubuntu_base" {
-  name   = "ubuntu-26.04-base.qcow2"
+  name   = "${local.name_prefix}-ubuntu-26.04-base.qcow2"
   pool   = libvirt_pool.vm_pool.name
   source = var.ubuntu_image_url
   format = "qcow2"
 }
 
 resource "libvirt_volume" "opnsense_base" {
-  name   = "opnsense-26.7.qcow2"
+  name   = "${local.name_prefix}-opnsense-base.qcow2"
   pool   = libvirt_pool.vm_pool.name
   source = var.opnsense_image_url
   format = "qcow2"
@@ -23,17 +23,17 @@ resource "libvirt_volume" "opnsense_base" {
 module "network" {
   source = "./modules/network"
 
-  wan_name   = "fw-wan-net"
-  wan_cidr   = "192.168.122.0/24"
-  wan_domain = "mini21.com"
-  lan_name   	= "fw-lan-net"
+  wan_name   = "${local.name_prefix}-wan-net"
+  wan_cidr   = "192.168.100.0/24"
+  wan_domain = "${local.name_prefix}.com"
+  lan_name   	= "${local.name_prefix}-lan-net"
 }
 
 # OPNsense Firewall (Gateway)
 module "firewall" {
   source = "./modules/vm_node"
 
-  vm_name        = "opnsense-fw"
+  vm_name        = "${local.name_prefix}-opnsense-fw"
   memory_mb      = 4096
   vcpu_count     = 2
   pool_name      = libvirt_pool.vm_pool.name
@@ -44,7 +44,7 @@ module "firewall" {
   network_interfaces = [
     {
       network_id     = module.network.wan_network_id # vtnet0 (WAN)
-      wait_for_lease = true
+      wait_for_lease = false
     },
     {
       network_id     = module.network.lan_network_id # vtnet1 (LAN)
@@ -52,7 +52,7 @@ module "firewall" {
     },
 	{
 	  bridge		 = var.management_interface
-	  wait_for_lease = true
+	  wait_for_lease = false
 	}
   ]
 }
@@ -61,7 +61,7 @@ module "firewall" {
 module "ubuntu_server" {
   source = "./modules/vm_node"
 
-  vm_name        = "srv-ubuntu-01"
+  vm_name        = "${local.name_prefix}-srv-01"
   memory_mb      = 2
   vcpu_count     = 2
   pool_name      = libvirt_pool.vm_pool.name
@@ -87,7 +87,7 @@ module "ubuntu_server" {
 module "ubuntu_desktop" {
   source = "./modules/vm_node"
 
-  vm_name        = "ws-ubuntu-01"
+  vm_name        = "${local.name_prefix}-ws-01"
   memory_mb      = 4096 # 6 GB RAM for desktop GUI
   vcpu_count     = 2
   pool_name      = libvirt_pool.vm_pool.name

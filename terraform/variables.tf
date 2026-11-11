@@ -1,3 +1,9 @@
+variable "project" {
+  type        = string
+  default     = "mini21"
+  description = "Project or workload identifier"
+}
+
 variable "libvirt_uri" {
 	type		= string
 	default		= "qemu:///system"
@@ -6,7 +12,7 @@ variable "libvirt_uri" {
 
 variable "storage_pool_path" {
 	type		= string
-	default		= "/var/lib/libvirt/images/kvm-pool"
+	default		= "/var/lib/libvirt/images/"
 	description = "Host directory path for storage pool"
 }
 

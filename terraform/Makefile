@@ -1,4 +1,4 @@
-.PHONY: bake-image bake-image-overlay init plan apply destroy console-fw console-srv console-ws
+.PHONY: bake-image bake-image-overlay init plan apply destroy re console-fw console-srv console-ws
 
 # Offline bake: creates a standalone full copy (~2.1 GB) with config.xml injected
 bake-image:
@@ -20,6 +20,8 @@ apply:
 
 destroy:
 	tofu destroy -var-file=tofu.tfvars
+
+re: destroy apply
 
 # Libvirt console helpers
 console-fw:

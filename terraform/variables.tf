@@ -24,8 +24,8 @@ variable "ubuntu_image_url" {
 
 variable "opnsense_image_url" {
   type        = string
-  default     = "/var/lib/libvirt/images/opnsense-26.7.qcow2"
-  description = "Path to pre-installed OPNsense QCOW2 disk"
+  default     = "images/OPNsense-26.7-configured.qcow2"
+  description = "Path to pre-configured OPNsense QCOW2 disk"
 }
 
 variable "management_interface" {

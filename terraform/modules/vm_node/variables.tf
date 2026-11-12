@@ -43,13 +43,19 @@ variable "graphics_type" {
   description = "Graphics backend (vnc or spice)"
 }
 
+variable "video_type" {
+  type        = string
+  default     = "virtio"
+  description = "Video device model type (e.g., virtio, qxl, vga, cirrus, bochs). Set to null to omit explicit video configuration."
+}
+
 variable "network_interfaces" {
   type = list(object({
     network_id     = optional(string)
-	bridge		   = optional(string)
+    bridge         = optional(string)
     wait_for_lease = optional(bool, false)
   }))
-  default = []
+  default     = []
   description = "Ordered list of network interfaces attached to the VM"
 }
 

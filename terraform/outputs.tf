@@ -11,12 +11,14 @@ output "infrastructure_map" {
       lan_net = "Internal Gateway (192.168.42.1/24)"
     }
     services_server = {
-      name    = module.ubuntu_server.vm_name
-      network = "Internal LAN (DHCP via OPNsense)"
+      name       = module.ubuntu_server.vm_name
+      network    = "Internal LAN (DHCP via OPNsense)"
+      management = "Management IP (Bridge)"
     }
     workstation_desktop = {
-      name    = module.ubuntu_desktop.vm_name
-      network = "Internal LAN (DHCP via OPNsense)"
+      name       = module.ubuntu_desktop.vm_name
+      network    = "Internal LAN (DHCP via OPNsense)"
+      management = "Management IP (Bridge)"
     }
   }
   description = "Overview of the deployed infrastructure nodes and network roles"

@@ -15,6 +15,7 @@ resource "libvirt_cloudinit_disk" "init_disk" {
 
 resource "libvirt_domain" "instance" {
   name   = var.vm_name
+  type   = "kvm"
   memory = var.memory_mb
   vcpu   = var.vcpu_count
 
@@ -28,7 +29,7 @@ resource "libvirt_domain" "instance" {
     for_each = var.network_interfaces
     content {
       network_id     = network_interface.value.network_id
-	  bridge		 = network_interface.value.bridge
+      bridge         = network_interface.value.bridge
       wait_for_lease = try(network_interface.value.wait_for_lease, false)
     }
   }
@@ -49,6 +50,13 @@ resource "libvirt_domain" "instance" {
     type        = var.graphics_type
     listen_type = "address"
     autoport    = true
+  }
+
+  dynamic "video" {
+    for_each = var.video_type != null ? [var.video_type] : []
+    content {
+      type = video.value
+    }
   }
 }
 

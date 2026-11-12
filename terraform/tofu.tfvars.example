@@ -1,4 +1,4 @@
-# run `cp tofu.tfvars.example tofu.tfvars`
+# run `cp tofu.tfvars.example tofu.tfvars`s
 
 project = "mini21" # Project name prefix for resources
 libvirt_uri = "qemu:///system" # Libvirt connection URI

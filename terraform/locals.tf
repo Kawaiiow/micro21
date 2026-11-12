@@ -1,3 +1,3 @@
 locals {
-	name_prefix = "${var.project}"
+  name_prefix = var.project
 }

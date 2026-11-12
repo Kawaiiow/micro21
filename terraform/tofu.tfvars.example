@@ -1,0 +1,10 @@
+# run `cp tofu.tfvars.example tofu.tfvars`
+
+project = "mini21" # Project name prefix for resources
+libvirt_uri = "qemu:///system" # Libvirt connection URI
+storage_pool_path = "/storage/hot/kvm-vms/mini21" # Host directory for VM storage pool
+opnsense_image_url = "images/OPNsense-26.7-configured.qcow2" # Host directory for VM storage pool
+ubuntu_image_url = "https://cloud-images.ubuntu.com/releases/resolute/release/ubuntu-26.04-server-cloudimg-amd64.img" # Ubuntu 26.04 base cloud image
+management_interface = "br0" # Host bridge for management network
+ssh_public_key_path = "~/.ssh/id_ed25519.pub" # Host SSH public key for VM access
+

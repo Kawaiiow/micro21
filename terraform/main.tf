@@ -44,7 +44,7 @@ module "firewall" {
   network_interfaces = [
     {
       network_id     = module.network.wan_network_id # vtnet0 (WAN)
-      wait_for_lease = false
+      wait_for_lease = true
     },
     {
       network_id     = module.network.lan_network_id # vtnet1 (LAN)

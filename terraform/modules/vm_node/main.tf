@@ -14,10 +14,11 @@ resource "libvirt_cloudinit_disk" "init_disk" {
 }
 
 resource "libvirt_domain" "instance" {
-  name   = var.vm_name
-  type   = "kvm"
-  memory = var.memory_mb
-  vcpu   = var.vcpu_count
+  name       = var.vm_name
+  type       = "kvm"
+  memory     = var.memory_mb
+  vcpu       = var.vcpu_count
+  qemu_agent = var.qemu_agent
 
   cloudinit = var.user_data != null ? libvirt_cloudinit_disk.init_disk[0].id : null
 

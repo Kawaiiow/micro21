@@ -8,3 +8,9 @@ output "lan_network_id" {
   description = "Identifier of the isolated internal LAN bridge"
 }
 
+output "management_network_id" {
+  value       = libvirt_network.management.id
+  description = "Identifier of the management network"
+}
+
+

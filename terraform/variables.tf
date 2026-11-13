@@ -28,10 +28,22 @@ variable "opnsense_image_url" {
   description = "Path to pre-configured OPNsense QCOW2 disk"
 }
 
+variable "management_mode" {
+  type        = string
+  default     = "bridge"
+  description = "Management network mode ('bridge' for host bridge like br0, or 'nat' for host-accessible virtual network)"
+}
+
+variable "opnsense_management_ip" {
+  type        = string
+  default     = "10.42.0.254"
+  description = "Static IP address configured on OPNsense management interface (opt1/vtnet2)"
+}
+
 variable "management_interface" {
   type        = string
   default     = "br0"
-  description = "Interface for management the network"
+  description = "Interface/bridge for management network when management_mode is 'bridge'"
 }
 
 variable "ssh_public_key_path" {

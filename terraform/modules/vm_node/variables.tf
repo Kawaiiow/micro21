@@ -49,6 +49,12 @@ variable "video_type" {
   description = "Video device model type (e.g., virtio, qxl, vga, cirrus, bochs). Set to null to omit explicit video configuration."
 }
 
+variable "qemu_agent" {
+  type        = bool
+  default     = true
+  description = "Enable QEMU guest agent virtio channel for dynamic IP reporting and guest commands"
+}
+
 variable "network_interfaces" {
   type = list(object({
     network_id     = optional(string)

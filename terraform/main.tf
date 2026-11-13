@@ -23,10 +23,13 @@ resource "libvirt_volume" "opnsense_base" {
 module "network" {
   source = "./modules/network"
 
-  wan_name   = "${local.name_prefix}-wan-net"
-  wan_cidr   = "192.168.100.0/24"
-  wan_domain = "${local.name_prefix}.com"
-  lan_name   = "${local.name_prefix}-lan-net"
+  wan_name          = "${local.name_prefix}-wan-net"
+  wan_cidr          = "192.168.100.0/24"
+  wan_domain        = "${local.name_prefix}.com"
+  lan_name          = "${local.name_prefix}-lan-net"
+  management_name   = "${local.name_prefix}-mgmt-net"
+  management_mode   = var.management_mode
+  management_bridge = var.management_interface
 }
 
 # OPNsense Firewall (Gateway)
@@ -36,6 +39,7 @@ module "firewall" {
   vm_name        = "${local.name_prefix}-opnsense-fw"
   memory_mb      = 4096
   vcpu_count     = 2
+  qemu_agent     = false
   pool_name      = libvirt_pool.vm_pool.name
   base_volume_id = libvirt_volume.opnsense_base.id
   disk_size      = 21474836480 # 20 GB
@@ -51,7 +55,7 @@ module "firewall" {
       wait_for_lease = false
     },
     {
-      bridge         = var.management_interface
+      network_id     = module.network.management_network_id
       wait_for_lease = false
     }
   ]
@@ -79,8 +83,8 @@ module "ubuntu_server" {
       wait_for_lease = false
     },
     {
-      bridge         = var.management_interface
-      wait_for_lease = false
+      network_id     = module.network.management_network_id
+      wait_for_lease = true
     }
   ]
 
@@ -110,8 +114,8 @@ module "ubuntu_desktop" {
       wait_for_lease = false
     },
     {
-      bridge         = var.management_interface
-      wait_for_lease = false
+      network_id     = module.network.management_network_id
+      wait_for_lease = true
     }
   ]
 

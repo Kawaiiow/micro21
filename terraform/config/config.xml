@@ -158,31 +158,11 @@
       <descr>Management_interface</descr>
       <enable>1</enable>
       <spoofmac/>
-      <ipaddr>dhcp</ipaddr>
-      <dhcphostname/>
-      <alias-address/>
-      <alias-subnet>32</alias-subnet>
-      <dhcprejectfrom/>
-      <adv_dhcp_pt_timeout/>
-      <adv_dhcp_pt_retry/>
-      <adv_dhcp_pt_select_timeout/>
-      <adv_dhcp_pt_reboot/>
-      <adv_dhcp_pt_backoff_cutoff/>
-      <adv_dhcp_pt_initial_interval/>
-      <adv_dhcp_pt_values>SavedCfg</adv_dhcp_pt_values>
-      <adv_dhcp_send_options/>
-      <adv_dhcp_request_options/>
-      <adv_dhcp_required_options/>
-      <adv_dhcp_option_modifiers/>
-      <adv_dhcp_config_advanced/>
-      <adv_dhcp_config_file_override/>
-      <adv_dhcp_config_file_override_path/>
-      <ipaddrv6>idassoc6</ipaddrv6>
-      <track6-interface>wan</track6-interface>
-      <track6-prefix-id>0</track6-prefix-id>
+      <ipaddr>10.42.0.254</ipaddr>
+      <subnet>16</subnet>
     </opt1>
   </interfaces>
-  <dnsmasq version="1.0.9" persisted_at="1794480120.61" description="Dnsmasq DNS and DHCP">
+  <dnsmasq version="1.0.9" persisted_at="1794554222.80" description="Dnsmasq DNS and DHCP">
     <enable>1</enable>
     <regdhcp>0</regdhcp>
     <regdhcpstatic>0</regdhcpstatic>
@@ -193,6 +173,7 @@
     <no_resolv>0</no_resolv>
     <log_queries>0</log_queries>
     <no_hosts>0</no_hosts>
+    <expand_hosts>0</expand_hosts>
     <strictbind>0</strictbind>
     <dnssec>0</dnssec>
     <regdhcpdomain/>
@@ -223,8 +204,8 @@
     <dhcp_ranges uuid="b73e34ec-dfb8-4349-9428-10934bf14285">
       <interface>lan</interface>
       <set_tag/>
-      <start_addr>192.168.42.41</start_addr>
-      <end_addr>192.168.42.245</end_addr>
+      <start_addr>192.168.42.50</start_addr>
+      <end_addr>192.168.42.100</end_addr>
       <subnet_mask/>
       <constructor/>
       <mode/>
@@ -254,7 +235,7 @@
   </ntpd>
   <OPNsense>
     <Firewall>
-      <Filter version="1.0.5" persisted_at="1794480704.22" description="Firewall rules (new)">
+      <Filter version="1.0.6" persisted_at="1794553886.78" description="Firewall rules (new)">
         <general/>
         <rules>
           <rule uuid="1da222a5-68e7-4680-8128-ce0f57fe5004">
@@ -266,6 +247,8 @@
             <quick>1</quick>
             <interfacenot>0</interfacenot>
             <interface>lan</interface>
+            <received-on-not>0</received-on-not>
+            <received-on/>
             <direction>in</direction>
             <ipprotocol>inet</ipprotocol>
             <protocol>any</protocol>
@@ -295,6 +278,8 @@
             <max/>
             <max-src-conn-rate/>
             <max-src-conn-rates/>
+            <max-pkt-rate-number/>
+            <max-pkt-rate-seconds/>
             <overload/>
             <adaptivestart/>
             <adaptiveend/>
@@ -312,6 +297,7 @@
             <shaper1/>
             <shaper2/>
             <description>Default allow LAN to any rule</description>
+            <audit/>
           </rule>
           <rule uuid="4b7e2b73-db4f-4d62-a845-5e809d83d137">
             <enabled>1</enabled>
@@ -322,6 +308,8 @@
             <quick>1</quick>
             <interfacenot>0</interfacenot>
             <interface>lan</interface>
+            <received-on-not>0</received-on-not>
+            <received-on/>
             <direction>in</direction>
             <ipprotocol>inet6</ipprotocol>
             <protocol>any</protocol>
@@ -351,6 +339,8 @@
             <max/>
             <max-src-conn-rate/>
             <max-src-conn-rates/>
+            <max-pkt-rate-number/>
+            <max-pkt-rate-seconds/>
             <overload/>
             <adaptivestart/>
             <adaptiveend/>
@@ -368,6 +358,7 @@
             <shaper1/>
             <shaper2/>
             <description>Default allow LAN IPv6 to any rule</description>
+            <audit/>
           </rule>
           <rule uuid="312d7637-1944-4d73-b2d4-ffeb2252766b">
             <enabled>1</enabled>
@@ -378,6 +369,8 @@
             <quick>1</quick>
             <interfacenot>0</interfacenot>
             <interface>opt1</interface>
+            <received-on-not>0</received-on-not>
+            <received-on/>
             <direction>in</direction>
             <ipprotocol>inet</ipprotocol>
             <protocol>TCP</protocol>
@@ -407,6 +400,8 @@
             <max/>
             <max-src-conn-rate/>
             <max-src-conn-rates/>
+            <max-pkt-rate-number/>
+            <max-pkt-rate-seconds/>
             <overload/>
             <adaptivestart/>
             <adaptiveend/>
@@ -424,6 +419,7 @@
             <shaper1/>
             <shaper2/>
             <description>Allow Management Interface to Web GUI</description>
+            <audit/>
           </rule>
           <rule uuid="fd50cd60-f6d6-440c-973d-d9af972e0dfb">
             <enabled>1</enabled>
@@ -434,6 +430,8 @@
             <quick>1</quick>
             <interfacenot>0</interfacenot>
             <interface>opt1</interface>
+            <received-on-not>0</received-on-not>
+            <received-on/>
             <direction>in</direction>
             <ipprotocol>inet</ipprotocol>
             <protocol>TCP</protocol>
@@ -463,6 +461,8 @@
             <max/>
             <max-src-conn-rate/>
             <max-src-conn-rates/>
+            <max-pkt-rate-number/>
+            <max-pkt-rate-seconds/>
             <overload/>
             <adaptivestart/>
             <adaptiveend/>
@@ -480,13 +480,14 @@
             <shaper1/>
             <shaper2/>
             <description>Allow Management Interface to Web GUI</description>
+            <audit/>
           </rule>
         </rules>
         <snatrules/>
         <npt/>
         <onetoone/>
       </Filter>
-      <Lvtemplate version="0.0.1" persisted_at="1794477578.81" description="Firewall Live View filter templates">
+      <Lvtemplate version="1.0.0" persisted_at="1794553886.36" description="Firewall Live View filter templates">
         <templates/>
       </Lvtemplate>
       <Alias version="1.0.1" persisted_at="1794477579.07" description="Firewall aliases">
@@ -499,7 +500,7 @@
         <categories/>
       </Category>
     </Firewall>
-    <captiveportal version="1.0.5" persisted_at="1794477578.39" description="Captive portal application model">
+    <captiveportal version="1.0.6" persisted_at="1794553885.96" description="Captive portal application model">
       <zones/>
       <templates/>
     </captiveportal>
@@ -576,7 +577,7 @@
         </eveLog>
       </general>
     </IDS>
-    <IPsec version="1.0.5" persisted_at="1794477579.36" description="IPsec settings">
+    <IPsec version="1.0.6" persisted_at="1794553886.85" description="IPsec settings">
       <general>
         <enabled/>
         <preferred_oldsa>0</preferred_oldsa>
@@ -601,6 +602,7 @@
         <retransmit_jitter/>
         <retransmit_limit/>
         <reqid_base/>
+        <retry_initiate_interval>30</retry_initiate_interval>
         <syslog>
           <daemon>
             <ike_name>1</ike_name>
@@ -676,6 +678,7 @@
         <dhcp6_ratimeout>10</dhcp6_ratimeout>
       </settings>
       <vxlans version="1.0.2" persisted_at="1794477579.68" description="VXLAN configuration"/>
+      <taps version="1.0.0" persisted_at="1794553887.15" description="TAP configuration"/>
     </Interfaces>
     <Kea>
       <ctrl_agent version="0.0.1" persisted_at="1794477579.69" description="Kea Control Agent configuration">
@@ -693,9 +696,9 @@
           <server_port>53001</server_port>
         </general>
       </ddns>
-      <dhcp4 version="1.0.5" persisted_at="1794481189.73" description="Kea DHCPv4 configuration">
+      <dhcp4 version="1.0.7" persisted_at="1794554205.10" description="Kea DHCPv4 configuration">
         <general>
-          <enabled>1</enabled>
+          <enabled>0</enabled>
           <manual_config>0</manual_config>
           <interfaces>lan</interfaces>
           <service_sockets_max_retries/>
@@ -721,18 +724,23 @@
         </ha>
         <subnets>
           <subnet4 uuid="8f1cbe04-bef2-4821-bc23-3c22809a6373">
+            <interface/>
+            <match_code/>
+            <match_encoding/>
+            <match_data/>
+            <subnet_id>1</subnet_id>
             <subnet>192.168.42.0/24</subnet>
             <valid_lifetime/>
             <next_server/>
             <option_data_autocollect>1</option_data_autocollect>
             <option_data>
-              <domain_name_servers/>
+              <domain_name_servers>192.168.42.1</domain_name_servers>
               <domain_search/>
-              <routers/>
+              <routers>192.168.42.1</routers>
               <static_routes/>
               <classless_static_route/>
               <domain_name>mini21.com</domain_name>
-              <ntp_servers/>
+              <ntp_servers>192.168.42.1</ntp_servers>
               <time_servers/>
               <tftp_server_name/>
               <boot_file_name/>
@@ -743,6 +751,7 @@
             <match-client-id>1</match-client-id>
             <allocator/>
             <pools>192.168.42.10 - 192.168.42.100</pools>
+            <ping_check>0</ping_check>
             <ddns_forward_zone/>
             <ddns_reverse_zone/>
             <ddns_qualifying_suffix/>
@@ -762,7 +771,7 @@
         <options/>
         <ha_peers/>
       </dhcp4>
-      <dhcp6 version="1.0.2" persisted_at="1794477579.85" description="Kea DHCPv6 configuration">
+      <dhcp6 version="1.0.3" persisted_at="1794553887.49" description="Kea DHCPv6 configuration">
         <general>
           <enabled>0</enabled>
           <manual_config>0</manual_config>
@@ -988,7 +997,7 @@
     </OpenVPN>
     <radvd version="1.0.1" persisted_at="1794477579.88" description="Radvd configuration"/>
     <Gateways version="1.0.0" persisted_at="1794480120.45" description="Gateways configuration"/>
-    <Syslog version="1.0.2" persisted_at="1794477579.94" description="System logging settings">
+    <Syslog version="1.0.3" persisted_at="1794553887.55" description="System logging settings">
       <general>
         <enabled>1</enabled>
         <loglocal>1</loglocal>
@@ -1003,7 +1012,7 @@
       <rules/>
     </TrafficShaper>
     <trust>
-      <general version="1.0.1" persisted_at="1794477580.16" description="Trust general settings">
+      <general version="1.0.2" persisted_at="1794553887.78" description="Trust general settings">
         <store_intermediate_certs>0</store_intermediate_certs>
         <install_crls>0</install_crls>
         <fetch_crls>0</fetch_crls>
@@ -1114,11 +1123,18 @@
         <servers/>
       </server>
     </wireguard>
+    <QemuGuestAgent version="1.0.0" persisted_at="1794554328.32" description="QEMU Guest Agent for OPNsense">
+      <general>
+        <Enabled>1</Enabled>
+        <LogDebug>0</LogDebug>
+        <DisabledRPCs/>
+      </general>
+    </QemuGuestAgent>
   </OPNsense>
   <revision>
     <username>root@10.42.10.1</username>
-    <description>/interfaces.php made changes</description>
-    <time>1794481709.45</time>
+    <description>/api/qemuguestagent/settings/set made changes</description>
+    <time>1794554328.32</time>
   </revision>
   <hasync version="1.0.2" persisted_at="1794477578.46" description="HA sync">
     <disablepreempt>0</disablepreempt>
@@ -1143,13 +1159,16 @@
   <vlans version="1.0.0" persisted_at="1794477579.68" description="VLAN configuration"/>
   <openvpn/>
   <staticroutes version="1.0.1" persisted_at="1794477579.89" description="Static routes"/>
-  <cert>
+  <cert uuid="47eb9bfe-f578-4590-97b9-914c06e57ce7">
     <refid>6af58e17499cb</refid>
     <descr>Web GUI TLS certificate</descr>
+    <caref/>
     <crt>LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUhFakNDQlBxZ0F3SUJBZ0lVZExFVDRJbUZ1K3A5QytRL2ptMWRCNE5EdFlZd0RRWUpLb1pJaHZjTkFRRUwKQlFBd2dZWXhHakFZQmdOVkJBTU1FVTlRVG5ObGJuTmxMbWx1ZEdWeWJtRnNNUXN3Q1FZRFZRUUdFd0pPVERFVgpNQk1HQTFVRUNBd01XblZwWkMxSWIyeHNZVzVrTVJVd0V3WURWUVFIREF4TmFXUmtaV3hvWVhKdWFYTXhMVEFyCkJnTlZCQW9NSkU5UVRuTmxibk5sSUhObGJHWXRjMmxuYm1Wa0lIZGxZaUJqWlhKMGFXWnBZMkYwWlRBZUZ3MHkKTmpFeE1USXdPVFU1TlRKYUZ3MHlOekV5TVRRd09UVTVOVEphTUlHR01Sb3dHQVlEVlFRRERCRlBVRTV6Wlc1egpaUzVwYm5SbGNtNWhiREVMTUFrR0ExVUVCaE1DVGt3eEZUQVRCZ05WQkFnTURGcDFhV1F0U0c5c2JHRnVaREVWCk1CTUdBMVVFQnd3TVRXbGtaR1ZzYUdGeWJtbHpNUzB3S3dZRFZRUUtEQ1JQVUU1elpXNXpaU0J6Wld4bUxYTnAKWjI1bFpDQjNaV0lnWTJWeWRHbG1hV05oZEdVd2dnSWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUNEd0F3Z2dJSwpBb0lDQVFDVzd4KzNVWjhBQVhWRm8vSmI3WFlYRFBxVTZmNjdPUUwxSTM3WE9CMTFJQXQxekdVTzJsR1c1L21GCnJUckFMTElxT3JDVlp2em5SWjJNck43NVpiYTZHMWUwOHFOa3FZY29OSXhubWhJbzVLQXhEcCs2eHZ6MVgrUlYKZkdqUFRFZVVUbFpNRnBIRGhTZ3FjeEt1U2M2M21WcGZNcFo4cllIZEZ5WDNQT2xZT3JVWE50Q3Y5MXhSS2tzbwo3L3oyeWRWUVJwVlR5dnYvQVdUdTZJYjBRTUxITkJ3M0YxZHRMMGFPZGJxb3lZVWpKa0pUeWtKRHg1UndCUjduCjJCU3FUdjVlRUZ4OFVEcld1TkM5ZDU3YmVGNVlBSVJrYURocDRLNG5XQ0tkUWQvS1VBMUtlUTgySUgwc1BQUngKOTZxZTZCakczaEJpSG9POEtpVU10TUx2ZFRmWVFHa29QUW40L0U2K3dPUDN1S3R2RkJMRjNSKzJWZFBhZ0ZsRwp5UytPUUhzRVNsdlNsUEorTHlBTkJ6S21sNlV6NGJTN3FveEkwM3RDWUhDZ0JiMEdpOTYybEI0LzNPMjA4OVdOClpBa29RelZZMVZ1d1V5bnJTckQ0VUZWbDdNVVZzbDB0OFkySjNpeWRFQkFjU1pWd1BLTzA5Y3QxRG9oUUliSTcKTzJNYzUzb2hoMXNrNDUxcGVSYmFiNnhqM1kzZ3V1K0laWnpITEx1Rmd3Y1VhN0h3UktMRHVaVjlGNzlEZjFWSgova1Jqd0R4aVU0L2dtY0pvR3ZpZXZGNlJHV2FLNGJKZTJCWk1ERUVMai9jdHdmdTJkQVhPUUM1WXJacE8vdENrCjJyWkZwT3RvSXpPZVdycjlsbUhaTExrUENjQVR3MUJWdVNBQ3BLZ2QyZjJZT0NjU0d3SURBUUFCbzRJQmREQ0MKQVhBd0NRWURWUjBUQkFJd0FEQVJCZ2xnaGtnQmh2aENBUUVFQkFNQ0JrQXdOQVlKWUlaSUFZYjRRZ0VOQkNjVwpKVTlRVG5ObGJuTmxJRWRsYm1WeVlYUmxaQ0JUWlhKMlpYSWdRMlZ5ZEdsbWFXTmhkR1V3SFFZRFZSME9CQllFCkZMZmZmVVJ0c0NXZm5KM1V1K0M1bmVMckJYbjhNSUd3QmdOVkhTTUVnYWd3Z2FXaGdZeWtnWWt3Z1lZeEdqQVkKQmdOVkJBTU1FVTlRVG5ObGJuTmxMbWx1ZEdWeWJtRnNNUXN3Q1FZRFZRUUdFd0pPVERFVk1CTUdBMVVFQ0F3TQpXblZwWkMxSWIyeHNZVzVrTVJVd0V3WURWUVFIREF4TmFXUmtaV3hvWVhKdWFYTXhMVEFyQmdOVkJBb01KRTlRClRuTmxibk5sSUhObGJHWXRjMmxuYm1Wa0lIZGxZaUJqWlhKMGFXWnBZMkYwWllJVWRMRVQ0SW1GdStwOUMrUS8Kam0xZEI0TkR0WVl3SFFZRFZSMGxCQll3RkFZSUt3WUJCUVVIQXdFR0NDc0dBUVVGQ0FJQ01Bc0dBMVVkRHdRRQpBd0lGb0RBY0JnTlZIUkVFRlRBVGdoRlBVRTV6Wlc1elpTNXBiblJsY201aGJEQU5CZ2txaGtpRzl3MEJBUXNGCkFBT0NBZ0VBREVDeXl2ZjRwRDBkZmUwc0oydis5VjhuU1RpOCtxM0h6Z2d2ZHFJTWhyM0xCSVpiZnZvWjRPZzUKL25HYzJNRHRtc2NwU1VGVlJveFZPajNodDQ1cVVGVkpPKzFuM1JTNmhuZFlaUlVRTzVIS29iWmlPSThKSURjRQo4dUU0Ykk2YUVxNUJIajBMTVRPRU9FY0tiQTc3YkhtVzRieW1JdWcyYlkzZSt3alVvbmt0dmtZZk0xOWViWEtnCmZIT0s4bVlCaDllQUpYakExN3pHT1RwRzYzd3IySUFRdFZlb0FFdmd6TWJXTWRMSGErOTFzdjJhRktyY3pnbVAKaVh1Z21nbGtTeGovTWdOME5GOEc1emFCcHh1UUpwbThwaTJaWDJTYUcrSm5MVDczbmtuZ3BVaTNvR3o2dWVnNQovLzZDU1F2NGs0MzVsQWRTdGhYZ0dVZ01vc3lsOFhIV0g4cThnblk5OHBBUVk1R0ZiTldzekk2TVRCczcvVUVrCnpBUFBvcURsL2t2bUE0UlNvSitwZXh2LzcyV0p5V0hYUU04eXQrSFpTMC9BYUNSei9oWGNxRGk0NStvYXRVUlgKVnFhOFQrRHRMQTE4dUNmU3hDVFp6bFRDSHROSXMwSm10TTFIZnV0ZEF3SThGMHlkeWtxRW1IVlo4aEJRZnR1WQo4eFZDWjQrNTJFK3FYTElDd2sxYVV1dDFqOStwSG5VZ1ZqZXMvUG9ocEViMnA4ZEhMYVY1VEdzYXp6YlZ2R3pwCnlBWlpDWVBiak9MRkFGK09sQVhKc2RQVVM0MWJ6SXN4NW1ETjIrWjhNVmNGUzFyQ3pXdlViRmloRmJoYlF6U3QKbUZaazAwcE9tcEVDK2hJNExObElqRTNGTWR2QUpBd2Y5SVBBUkpRMmFTNHlBVDhKR1kwPQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==</crt>
+    <csr/>
     <prv>LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUpRZ0lCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQ1N3d2dna29BZ0VBQW9JQ0FRQ1c3eCszVVo4QUFYVkYKby9KYjdYWVhEUHFVNmY2N09RTDFJMzdYT0IxMUlBdDF6R1VPMmxHVzUvbUZyVHJBTExJcU9yQ1ZadnpuUloyTQpyTjc1WmJhNkcxZTA4cU5rcVljb05JeG5taElvNUtBeERwKzZ4dnoxWCtSVmZHalBURWVVVGxaTUZwSERoU2dxCmN4S3VTYzYzbVZwZk1wWjhyWUhkRnlYM1BPbFlPclVYTnRDdjkxeFJLa3NvNy96MnlkVlFScFZUeXZ2L0FXVHUKNkliMFFNTEhOQnczRjFkdEwwYU9kYnFveVlVakprSlR5a0pEeDVSd0JSN24yQlNxVHY1ZUVGeDhVRHJXdU5DOQpkNTdiZUY1WUFJUmthRGhwNEs0bldDS2RRZC9LVUExS2VRODJJSDBzUFBSeDk2cWU2QmpHM2hCaUhvTzhLaVVNCnRNTHZkVGZZUUdrb1BRbjQvRTYrd09QM3VLdHZGQkxGM1IrMlZkUGFnRmxHeVMrT1FIc0VTbHZTbFBKK0x5QU4KQnpLbWw2VXo0YlM3cW94STAzdENZSENnQmIwR2k5NjJsQjQvM08yMDg5V05aQWtvUXpWWTFWdXdVeW5yU3JENApVRlZsN01VVnNsMHQ4WTJKM2l5ZEVCQWNTWlZ3UEtPMDljdDFEb2hRSWJJN08yTWM1M29oaDFzazQ1MXBlUmJhCmI2eGozWTNndXUrSVpaekhMTHVGZ3djVWE3SHdSS0xEdVpWOUY3OURmMVZKL2tSandEeGlVNC9nbWNKb0d2aWUKdkY2UkdXYUs0YkplMkJaTURFRUxqL2N0d2Z1MmRBWE9RQzVZclpwTy90Q2syclpGcE90b0l6T2VXcnI5bG1IWgpMTGtQQ2NBVHcxQlZ1U0FDcEtnZDJmMllPQ2NTR3dJREFRQUJBb0lDQUFpbHc2aVhveEgzZzJ0aTJoc1Nqd09zCkU5dnpUM1pxUWtxZTV0WUMyamFMTXZlT3B6THVKdUxoVmVaUm5LanZzVXpYd2FWQVdpTmxWWUpUL0k4ZEdPdloKeERFb1U3SGhQL2xPNVcvTUg5ZmxuVzMzY0xHeXFVSGxFQlVtYnhvdFp5UE9uSVY0Zk9Va1hHbVkzK0dmZGU5YgorR3NLNEJ5eTZOcXN5Rms5ZUFCbmxnSXgrdmFSL1dFNGJmSk1WRm5PdE9EZFltY3VIVGorTUorNjJueVB0MDU5CmVha0lZU2h1eWM2V0I5bnRlSDkyak55Z2NuZlFBcWVydGhwc3dydXRQSjFSWWxNaHI1Lzh4UmVONG5WSzZnWXcKWldWeFRvWWhGWDZkNmV4em5wUklvNGVpOUZCU3Y5NklmQzJKYXp1aEt2RG9rOWRqVGRpUDI1YVBuQTduSllvRwpNMHlSMVlVRFdmS0F2MDcrVGRPbHJvcFlrcnJhVW5Vbno4Y2hRNmdHU253VXZJd2lDaC8yeWxPcDRrN3dkWWw4CnU1Wkt2ZERtT2NGTlp4ZGlaTVJCSGhtbERoTE1TcnpEaStVcE03WWlVN2ZqZXZTVndHcnVJWklYZlFPU3N0MDUKTWovcmt5b3hHT09lRThnMWVxRU1UejJkTjEwY1dDS3crbnlvY2tkcTA2Vm9sS250RTJCUkJqK0tCMWNGcmIveQo2T0dBY1hVU3VISUcyUUt5VXRVYUllUzFidFEzN0NzdXh3amZMSEhGbEpHR3dEVXpPM2Jla05uYnlJRGVqckdGCm9iZElDM1plTXhzSGNmemZmd09XMStVS3hLbFB6WWloanhlMCtnNjFzRm5jcmRmZExpdTBOMUxQZmk5QWpNWE0KeUdLVVZGTDJUeWNDOGViaDNwMHRBb0lCQVFEVVV2UHlmV2hvTUs4VjRmb3hmcnE2RjFUODhYeEFvNFl0UjlCWgpuR2NWaHdoSjA4VTdMNjIwZFFaanpsdm9iS3BlcS9RYitkV2dyS0VLQngrTk0yT29OeFdTNzAzUUJjRk16eWZlCmwvalZqTk9sTjJnN3Y2OWQ4YlpRaWo5NzVSZDkxT0xkOVlRUnc1MXQ3Wno0S1BIbEgxbHQ4TjMybnFMYlM4RUcKbDc3Y2pUWjErSUYvLzRHejA1aDRnbGdXd1l5ZTV0YzcvdytqamIvMWt6WkxHcmV4YVZKNVBsQXFZOHgvWjF1dgpTNGlWd09mMDcvak04RVhjd1BGVmxmRU1hVlp4b0JLK2FwOFhMajkrL2NNMUJBbXIyUUQ0TXlTZjYvdXMwa3FzClEwZXF0Vk1rRFhmdG9aYzBVa2lIY1VnNEl5eWtJTWplV1RsdEE3eFRMMjdEWTZBbkFvSUJBUUMxKzF1RTNyVTQKM09GL2FLOXUwd2V0UC9LRmM4Qm5IbGZVSllYRjhCVnUrOGJnTHVmcUg1VXVSdEZPM1FPclcrY2pGRFdLZnlnNwpxT3pxRW1nV0t3Y3pGT2JTQzZ4S093Qkh2dUsyci9HVGdmQm9qQzUvdW5UdUovUXhHak1FU3d6a3c5blNJQUtDCkRqL1RjanhUY2pVVG1rVlhaeW40Ym5iSDhIQndRQ2ZTYkhRT3h6bG1kYS90Y3lCUHpnN1g1SHBWNkJqbHNLaDkKaE5wdDZ0a1g2RVNXbkdSYXlwU2NKeFhCK1dMWWp0MVN3TGU0V3N4WjBKSHd5UkxqU1o3VXEwdEJhTnN0clFMVQpMZEIrbFBlWFNCTWE5TjUyWmF1aFQxaDJJc09zQ2dwMXhSSjd2ajRneURUMkRXZDZhRmx4ckJzR1d5WUpwL0FkCm1mTlIvdEc4cUlMdEFvSUJBUUNtMU5OWHV4QlpwYjg5RzRYQ2RFaDJSalVDVnlFQmpUdTF3cExFaHE4ODdCQW8KS2x6MEozOStwdUV4ZFFra2RKWGRzNUVvbGtNMGI5Qk5sOUZEMnBnNHFhZXEvNXVOazZnU0dVZkRrSGYySENTRQowaWQxb3lWQlZOYWpMQzI3eFFPVFhMNHlGMk1CcmttNkFaVndMSVA5TzRmQ2FodU9WNUd4YkRHc1kzbVZ4T09CCkNKV0FwSndlVjJtYmJ4ZVdNZGl6VnNEU0pKVCtOemdZMXVZM1Z6UDFFOE80L3F4dzBsL3h6NTNyL0JiRFRJTTIKSTRURVN4c3AzUFVFQWNBWXQ0QXo0Y280a29DVTcwTDNIcC9PdlhCMzloZmI3aHVlQ1FlRkFPdXB0V2ZQaTVCYgphTFhPSTBVeTJHQ2pBL0R5SXpsRmNYbER0S241clpEQmNDakJJRHZMQW9JQkFCdndvWlorMHZnT0Faa2NLNE1xClowMVVPaG4vTVpVamRYeWUzakVMc1Y2K3pVUHlMNjBrZURVSXJtNGJSTXIwYTBKWmdmYm5tdmU5OGRIbVRaREoKdm1zN1ZFei9lYzVUekxFM1AzdW8rOEFYL1I4d0ZwdUp0eFl4a0M1UnhXOXRUbWQ1SW1JK2crUVA2QURBMHo1RQpsSjJUMi8yVld6NUhSM2xmRXdSSTlWUTdUbjVPWENPOUFldkU5enNKZWdIdmxGRElON3BjS3lKS1dYYnl6YTM3Ci9UdmFleFh0Y0craEdKZ1ZmL1dieWFOQTczUWdqS3RsZUdLdG5IYkZBTnZLQ04zY0NYcXp5M0ZrTDFTZjdudU4KbDFGV015bWVab0YzdXk4NEd5NjR3KzVjK1grQ0wrdThrVlVOcmN0L1pld3I3bUpGY0V1Zk95QndXSWxJUkU5ZwoxK2tDZ2dFQVRVYnFhenh2S1liMjRKSUlWVjIrRG9EUFNOVTR0a3ZJZEdscGN1MkJPSVVIbUtwbnlhR1hlVkxOCnJHTFdabHBBb0kxTTBUdzhOZkNRd1NIQkxyYTltZC9idGhyV1k2Q09mL0FWdDhMOSt1QTlUNU50djhHRThUangKT0Iva0kvY0wvb00zeTNqUjc4bkNyVlpjelpCTitMdy9oVk9udlpCc2doRy9HVnZhZkRXRXJWeldkYVZobjhIbwplcm1ITXNEUUVKUjQ0NzZROGNmaFJwSEp1cjVJYTArbXVRblBuTUxubS82eFpFSXl1RzNsMGdPd1BsTXZIMjQrCmVzc2VaWEtkYlVySkFqY0ZMNXBnVDlsSTdNSE40WHBJeTlmejZtMG0zUVhTNkdmU2NRVnpDUlZ2alRyREMvTUgKTlZ5TjQzYmZDSzdKZVJDTmtFUnhjRHJjSUFKLy9nPT0KLS0tLS1FTkQgUFJJVkFURSBLRVktLS0tLQo=</prv>
   </cert>
   <ppps>
     <ppp/>
   </ppps>
+  <wireless version="1.0.0" persisted_at="1794553887.35" description="Wireless configuration"/>
 </opnsense>
